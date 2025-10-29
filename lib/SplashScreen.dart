@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'HomePage.dart';
 import 'colors.dart';
 import 'Login.dart';
 
@@ -74,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 2000));
 
     // Navigate to login screen
-    Get.off(() => const Login());
+    Get.off(() => const Homepage());
   }
 
   @override
