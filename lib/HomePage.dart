@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yeektv/Controller/homepageController.dart';
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
+import 'package:yeektv/VideoPlayerScreen.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -262,26 +263,31 @@ class _HomepageState extends State<Homepage> {
                             : Colors.white,
                         size: 55.r,
                       ),
-                      Container(
-                        height: 38.h,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1.25,
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(VideoPlayerScreen());
+                        },
+                        child: Container(
+                          height: 38.h,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1.25,
+                            ),
+                            borderRadius: BorderRadius.circular(25),
                           ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 15.w,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Start Listening",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15.w,
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Start Listening",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),

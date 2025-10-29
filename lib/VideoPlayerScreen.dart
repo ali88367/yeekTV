@@ -25,9 +25,6 @@ class VideoController extends GetxController {
       if (videoController.value.isPlaying != isPlaying.value) {
         isPlaying.value = videoController.value.isPlaying;
       }
-      // if (videoController.value.volume == 0 !== isMuted.value) {
-      //   isMuted.value = videoController.value.volume == 0;
-      // }
     });
   }
 
@@ -180,6 +177,7 @@ class _FullscreenVideoPlayerState extends State<FullscreenVideoPlayer> {
     );
   }
 }
+
 class VideoPlayerScreen extends StatelessWidget {
   const VideoPlayerScreen({Key? key}) : super(key: key);
 
@@ -428,7 +426,7 @@ class VideoPlayerScreen extends StatelessWidget {
                                         fontSize: 10.sp,
                                         fontWeight: FontWeight.w500)),
                                 SizedBox(width: 4.w),
-                                Icon(Icons.check, size: 16.sp),
+                                Icon(Icons.check, size: 16.sp,color: Colors.blue,),
                                 SizedBox(width: 6.w),
                                 Expanded(
                                   child: Padding(
@@ -479,124 +477,235 @@ class VideoPlayerScreen extends StatelessWidget {
 
               SizedBox(height: 6.h),
 
-              // Live Chat Section - Conditionally Shown
+              // Live Chat Section - STYLED VERSION
               Obx(() => controller.isChatVisible.value
                   ? Expanded(
-                child: Card(
-                  color: Colors.white,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 0),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.white,
+                        Colors.grey[100]!,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
                   child: Column(
                     children: [
-                      // Chat Header
-                      Padding(
-                        padding: const EdgeInsets.all(10),
+                      // Chat Header with gradient
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.white,
+                              Colors.grey[50]!,
+                            ],
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16),
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                         child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Live Chat',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
                             Row(
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
+                                  width: 8,
+                                  height: 8,
                                   decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.1),
-                                    borderRadius:
-                                    BorderRadius.circular(12),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Icon(CupertinoIcons.eye_fill,
-                                          color: Colors.red, size: 13.sp),
-                                      const SizedBox(width: 4),
-                                      const Text(
-                                        '1.2kP',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 11,
-                                        ),
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.red.withOpacity(0.5),
+                                        blurRadius: 4,
+                                        spreadRadius: 1,
                                       ),
                                     ],
                                   ),
                                 ),
                                 const SizedBox(width: 8),
+                                const Text(
+                                  'Live Chat',
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.3,
+                                  ),
+                                ),
                               ],
                             ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
+                              ),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.red.shade400,
+                                    Colors.red.shade600,
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.red.withOpacity(0.3),
+                                    blurRadius: 6,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    CupertinoIcons.eye_fill,
+                                    color: Colors.white,
+                                    size: 14,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  const Text(
+                                    '1.2K',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
 
-                      const Divider(color: Colors.grey, height: 1),
+                      Container(
+                        height: 1,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.transparent,
+                              Colors.grey.shade300,
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
+                      ),
 
-                      // Chat Messages
+                      // Chat Messages with custom styling
                       Expanded(
-                        child: ListView(
-                          padding: const EdgeInsets.all(12),
-                          children: [
-                            _buildChatMessage(
-                              'MusicLover23',
-                              'This song is amazing!',
-                              'SUBSCRIBER',
-                              '1w ago',
-                              '15',
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.grey[50]!,
+                                Colors.white,
+                              ],
                             ),
-                            const SizedBox(height: 16),
-                            _buildChatMessage(
-                              'DJ Retro',
-                              'Wooo I\'m so sexy omg! Thanks for tuning in to 80\'s & 90\'s Pop Hits',
-                              'SUBSCRIBER',
-                              'VERIFIED',
-                              '12',
-                              isCreator: true,
-                              showHostBadge: true,
-                            ),
-                            const SizedBox(height: 16),
-                            _buildChatMessage(
-                              'RetroFan88',
-                              'Love this playlist! Takes me back',
-                              '',
-                              '2d ago',
-                              '8',
-                            ),
-                            const SizedBox(height: 16),
-                            _buildChatMessage(
-                              'NostalgiaKing',
-                              'Best stream ever!',
-                              'SUBSCRIBER',
-                              '3d ago',
-                              '23',
-                            ),
-                          ],
+                          ),
+                          child: ListView(
+                            padding: const EdgeInsets.all(16),
+                            children: [
+                              _buildStyledChatMessage(
+                                'Mark Love23',
+                                'This song is amazing! 🔥',
+                                'SUBSCRIBER',
+                                '1h ago',
+                                '4',
+                                avatarColor: Colors.red,
+                              ),
+                              const SizedBox(height: 20),
+                              _buildStyledChatMessage(
+                                'DJ Retro',
+                                'Welcome everyone! Thanks for tuning in to 80\'s & 90\'s Pop Hits 🎵',
+                                'SUBSCRIBER',
+                                'HOST',
+                                '12',
+                                isHost: true,
+                                showVerified: true,
+                                avatarColor: Colors.blue,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 
-                      const Divider(color: Color(0xFF2A2A2A), height: 1),
+                      Container(
+                        height: 1,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.transparent,
+                              Colors.grey.shade300,
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
+                      ),
 
-                      // Comment Input
-                      Padding(
+                      // Comment Input with gradient
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.white,
+                              Colors.grey[50]!,
+                            ],
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(16),
+                            bottomRight: Radius.circular(16),
+                          ),
+                        ),
                         padding: const EdgeInsets.all(12),
                         child: Row(
                           children: [
-                            const CircleAvatar(
-                              radius: 16,
-                              backgroundColor: Colors.red,
-                              child: Icon(
+                            Container(
+                              width: 36,
+                              height: 36,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.red.shade400,
+                                    Colors.red.shade600,
+                                  ],
+                                ),
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.red.withOpacity(0.3),
+                                    blurRadius: 6,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
                                 Icons.person,
                                 color: Colors.white,
-                                size: 18,
+                                size: 20,
                               ),
                             ),
                             const SizedBox(width: 12),
@@ -606,8 +715,7 @@ class VideoPlayerScreen extends StatelessWidget {
                                   Get.defaultDialog(
                                     title: 'Add Comment',
                                     content: TextField(
-                                      controller:
-                                      controller.commentController,
+                                      controller: controller.commentController,
                                       decoration: const InputDecoration(
                                         hintText: 'Write your comment...',
                                       ),
@@ -618,33 +726,35 @@ class VideoPlayerScreen extends StatelessWidget {
                                       Get.snackbar(
                                         'Comment Sent',
                                         'Your comment has been posted',
-                                        snackPosition:
-                                        SnackPosition.BOTTOM,
+                                        snackPosition: SnackPosition.BOTTOM,
                                       );
                                     },
                                   );
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 10,
+                                    horizontal: 16,
+                                    vertical: 12,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF2A2A2A),
-                                    borderRadius:
-                                    BorderRadius.circular(20),
+                                    color: Colors.grey[100],
+                                    borderRadius: BorderRadius.circular(24),
+                                    border: Border.all(
+                                      color: Colors.grey[300]!,
+                                      width: 1,
+                                    ),
                                   ),
-                                  child: const Text(
+                                  child: Text(
                                     'Add a comment...',
                                     style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 13,
+                                      color: Colors.grey[600],
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 10),
                             GestureDetector(
                               onTap: () {
                                 Get.snackbar(
@@ -656,16 +766,30 @@ class VideoPlayerScreen extends StatelessWidget {
                                 );
                               },
                               child: Container(
-                                width: 36,
-                                height: 36,
-                                decoration: const BoxDecoration(
-                                  color: Colors.red,
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Colors.red.shade400,
+                                      Colors.red.shade600,
+                                    ],
+                                  ),
                                   shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.red.withOpacity(0.4),
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 3),
+                                    ),
+                                  ],
                                 ),
                                 child: const Icon(
                                   Icons.send,
                                   color: Colors.white,
-                                  size: 18,
+                                  size: 20,
                                 ),
                               ),
                             ),
@@ -676,7 +800,7 @@ class VideoPlayerScreen extends StatelessWidget {
                   ),
                 ),
               )
-                  : const SizedBox.shrink()), // Hide chat entirely
+                  : const SizedBox.shrink()),
             ],
           ),
         ),
@@ -698,164 +822,224 @@ class VideoPlayerScreen extends StatelessWidget {
     ]),
   );
 
-  Widget _buildChatMessage(
+  Widget _buildStyledChatMessage(
       String username,
       String message,
       String badge1,
       String badge2,
-      String replyCount, {
-        bool isCreator = false,
-        bool showHostBadge = false,
+      String likeCount, {
+        bool isHost = false,
+        bool showVerified = false,
+        required Color avatarColor,
       }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 14,
-              backgroundColor: isCreator ? Colors.blue : Colors.red,
-              child: Text(
-                username[0],
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 4,
-                    children: [
-                      Text(
-                        username,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      if (badge1.isNotEmpty)
-                        Container(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: badge1 == 'SUBSCRIBER'
-                                ? Colors.red
-                                : Colors.red,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            badge1,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      if (isCreator && badge2.isNotEmpty)
-                        Container(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            badge2,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      if (showHostBadge)
-                        Container(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[700],
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: const Text(
-                            'HOST',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      if (!isCreator && badge2.isNotEmpty)
-                        Text(
-                          badge2,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10,
-                          ),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    message,
-                    style: const TextStyle(color: Colors.black, fontSize: 13),
-                  ),
-                  const SizedBox(height: 6),
-                  Row(
-                    children: [
-                      const Icon(Icons.favorite, color: Colors.red, size: 14),
-                      const SizedBox(width: 4),
-                      Text(
-                        replyCount,
-                        style: const TextStyle(
-                          color: Colors.yellow,
-                          fontSize: 11,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      GestureDetector(
-                        onTap: () {
-                          Get.snackbar(
-                            'Reply',
-                            'Reply to $username',
-                            snackPosition: SnackPosition.BOTTOM,
-                          );
-                        },
-                        child: Container(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Text(
-                            'REPLY',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+        Container(
+        width: 32,
+        height: 32,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              avatarColor.withOpacity(0.8),
+              avatarColor,
+            ],
+          ),
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: avatarColor.withOpacity(0.3),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
+        child: Center(
+          child: Text(
+            username[0].toUpperCase(),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(width: 10),
+      Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 6,
+            runSpacing: 4,
+            children: [
+            Text(
+            username,
+            style: const TextStyle(
+              color: Colors.black87,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          if (badge1.isNotEmpty)
+      Container(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 8,
+      vertical: 3,
+    ),
+    decoration: BoxDecoration(
+    gradient: LinearGradient(
+    colors: [
+    Colors.red.shade400,
+    Colors.red.shade600,
+    ],
+    ),
+    borderRadius: BorderRadius.circular(6),
+    boxShadow: [
+    BoxShadow(
+    color: Colors.red.withOpacity(0.3),
+    blurRadius: 4,
+    offset: const Offset(0, 1),
+    ),
+    ],
+    ),
+    child: Text(
+    badge1,
+    style: const TextStyle(
+    color: Colors.white,
+    fontSize: 9,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 0.5,
+    ),
+    ),
+    ),
+    if (showVerified)
+    Container(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 8,
+    vertical: 3,
+    ),
+    decoration: BoxDecoration(
+    gradient: LinearGradient(
+    colors: [
+    Colors.blue.shade400,
+    Colors.blue.shade600,
+    ],
+    ),
+    borderRadius: BorderRadius.circular(6),
+    boxShadow: [
+    BoxShadow(
+    color: Colors.blue.withOpacity(0.3),
+    blurRadius: 4,
+    offset: const Offset(0, 1),
+    ),
+    ],
+    ),
+    child: const Text(
+    '✓',
+    style: TextStyle(
+    color: Colors.white,
+    fontSize: 10,
+    fontWeight: FontWeight.bold,
+    ),
+    ),
+    ),
+    if (isHost)
+    Container(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 8,
+    vertical: 3,
+    ),
+    decoration: BoxDecoration(
+    gradient: LinearGradient(
+      colors: [
+        Colors.purple.shade400,
+        Colors.purple.shade600,
       ],
+    ),
+      borderRadius: BorderRadius.circular(6),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.purple.withOpacity(0.3),
+          blurRadius: 4,
+          offset: const Offset(0, 1),
+        ),
+      ],
+    ),
+      child: Text(
+        badge2, // This will display 'HOST'
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 9,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 0.5,
+        ),
+      ),
+    ),
+            ],
+            ),
+              const SizedBox(height: 4),
+              Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.black54,
+                  fontSize: 14,
+                  height: 1.4,
+                ),
+              ),
+            ],
+          ),
+      ),
+        ],
+        ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                isHost ? 'Just now' : badge2, // For users, badge2 is the timestamp
+                style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: 10,
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Icon(
+                Icons.favorite_border,
+                color: Colors.grey,
+                size: 16,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                likeCount,
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
