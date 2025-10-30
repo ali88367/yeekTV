@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'YeekTV',
-      home:  SplashScreen(),
+      home:  Homepage(),
     );
   }
 }
