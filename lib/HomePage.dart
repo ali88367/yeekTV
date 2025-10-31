@@ -47,9 +47,9 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
           children: [
             // Scrollable background + content
             SingleChildScrollView(
@@ -69,7 +69,7 @@ class _HomepageState extends State<Homepage> {
                     SizedBox(height: 95.h),
                     Image.asset('assets/newLogo.png'),
                     SizedBox(height: 25.h),
-
+            
                     // ------------------- Animated Text Section -------------------
                     Container(
                       height: 170.h,
@@ -238,9 +238,9 @@ class _HomepageState extends State<Homepage> {
                         ),
                       ),
                     ),
-
+            
                     SizedBox(height: 20.h),
-
+            
                     // ------------------- Plan Section -------------------
                     Column(
                       children: [
@@ -279,7 +279,7 @@ class _HomepageState extends State<Homepage> {
                         ),
                       ],
                     ),
-
+            
                     Image.asset(
                       height: 70.h,
                       'assets/singlefront.png',
@@ -310,7 +310,7 @@ class _HomepageState extends State<Homepage> {
                         ),
                       ],
                     ),
-
+            
                     SizedBox(height: 20.h),
                     // Social icons
                     Row(
@@ -330,7 +330,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
-
+            
             // ------------------- Sticky Header -------------------
             Positioned(
               child: Obx(() => Container(
@@ -376,7 +376,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               )),
             ),
-
+            
             // ------------------- Floating "Got Questions?" Widget -------------------
             if (_showQuestions)
               Positioned(

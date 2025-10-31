@@ -11,126 +11,132 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: const AssetImage('assets/singleback.png'),
-            fit: BoxFit.cover,
+      body: GestureDetector(
+        onTap: () {
+          // Unfocus any focused text field when tapping outside
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage('assets/singleback.png'),
+              fit: BoxFit.cover,
 
+            ),
           ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Logo
-                Image.asset('assets/newLogo.png', width: 450),
-                const SizedBox(height: 20),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Logo
+                  Image.asset('assets/newLogo.png', width: 450),
+                  const SizedBox(height: 20),
 
-                // Title
-            Stack(
-              children: [
-                Text(
-                  'Welcome Back!',
-                  style: TextStyle(
-                    height: 1,
-                    fontSize: 40.sp,
-                    fontFamily: 'evang',
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 2
-                      ..color = Colors.black,
-                  ),
-                ),
-                Text(
-                  'Welcome Back!',
-                  style: TextStyle(
-                    height: 1,
-                    fontSize: 40.sp,
-                    fontFamily: 'evang',
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-
-                ),
-                const SizedBox(height: 30),
-
-                // Email Field
-                const _CustomTextField(
-                  labelText: 'Email',
-                  icon: Icons.email_outlined,
-                ),
-                const SizedBox(height: 16),
-
-                // Password Field
-                const _CustomTextField(
-                  labelText: 'Password',
-                  icon: Icons.lock_outline,
-                  obscureText: true,
-                ),
-                const SizedBox(height: 30),
-
-                // Login Button
-                ElevatedButton(
-                  onPressed: () {
-                    Get.to(SignupScreen());
-
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: const BorderSide(color: Colors.black, width: 2),
-                    ),
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
-                    ),
-                  ),
-                  child: const Text('START WATCHING'),
-                ),
-                const SizedBox(height: 20),
-
-                // Sign Up Link
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
+                  // Title
+              Stack(
+                children: [
+                  Text(
+                    'Welcome Back!',
                     style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                      height: 1.3,
-                      fontFamily: 'jost', // optional, clean modern look
+                      height: 1,
+                      fontSize: 40.sp,
+                      fontFamily: 'evang',
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 2
+                        ..color = Colors.black,
                     ),
-                    children: [
-                      TextSpan(
-                        text: "Don't have an account? ",
-                        style: TextStyle(
-                          color: Colors.grey[300], // soft light gray
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Sign Up',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Get.to(SignupScreen());
-                          },
-                      ),
-                    ],
                   ),
-                ),
+                  Text(
+                    'Welcome Back!',
+                    style: TextStyle(
+                      height: 1,
+                      fontSize: 40.sp,
+                      fontFamily: 'evang',
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
 
-              ],
+                  ),
+                  const SizedBox(height: 30),
+
+                  // Email Field
+                  const _CustomTextField(
+                    labelText: 'Email',
+                    icon: Icons.email_outlined,
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Password Field
+                  const _CustomTextField(
+                    labelText: 'Password',
+                    icon: Icons.lock_outline,
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 30),
+
+                  // Login Button
+                  ElevatedButton(
+                    onPressed: () {
+                      Get.to(SignupScreen());
+
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      minimumSize: const Size(double.infinity, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: const BorderSide(color: Colors.black, width: 2),
+                      ),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    child: const Text('START WATCHING'),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Sign Up Link
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        height: 1.3,
+                        fontFamily: 'jost', // optional, clean modern look
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "Don't have an account? ",
+                          style: TextStyle(
+                            color: Colors.grey[300], // soft light gray
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Sign Up',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.to(SignupScreen());
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
             ),
           ),
         ),
