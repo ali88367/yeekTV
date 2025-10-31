@@ -41,55 +41,38 @@ class CustomDrawer extends StatelessWidget {
               SizedBox(height: 20.h),
 
               // Search Bar
+// Search Bar
               Container(
                 height: 48.h,
                 margin: EdgeInsets.symmetric(horizontal: 4.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
                   color: Colors.white,
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     color: Colors.grey.shade200,
-                  //     spreadRadius: 1,
-                  //     blurRadius: 4,
-                  //   ),
-                  // ],
+                  border: Border.all(color: Colors.blue.shade100),
                 ),
-                child: Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      contentPadding: EdgeInsets.only(left: 12.w, bottom: 8.h),
-                      hintText: 'Search...',
-                      hintStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.black38),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                        borderSide: BorderSide(
-                          color: Colors.blue.shade100,
-                        )
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-
-                          borderSide: BorderSide(
-                              color: Colors.blue.shade100
-                          )
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-
-                          borderSide: BorderSide(
-                              color: Colors.blue.shade100
-                          )
-                      ),
-
-                      prefixIcon: Icon(Icons.search, color: Colors.grey, size: 20.sp),
+                child: TextField(
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    contentPadding: EdgeInsets.only(left: 12.w, bottom: 8.h),
+                    hintText: 'Search...',
+                    hintStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.black38),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide.none, // We'll use Container border instead
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide.none,
+                    ),
+                    prefixIcon: Icon(Icons.search, color: Colors.grey, size: 20.sp),
                   ),
                 ),
-              ),
-              Divider(
+              ),              Divider(
                 height: 10.h,
                 color: Colors.grey.shade300,
               ),

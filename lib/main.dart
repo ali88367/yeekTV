@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:yeektv/HomePage.dart';
-import 'package:yeektv/SplashScreen.dart';
-import 'package:yeektv/VideoPlayerScreen.dart';
-import 'colors.dart';
+import 'package:yeektv/auth/SplashScreen.dart';
+
+import 'VideoPlayerScreen.dart';
+
 
 void main() {
   runApp(
@@ -15,9 +14,11 @@ void main() {
       splitScreenMode: true,
       builder: (context, child) {
         return const MyApp();
+
       },
     ),
   );
+  Get.put(VideoController()); // Put ONCE here
 }
 
 class MyApp extends StatelessWidget {
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'YeekTV',
       home:  SplashScreen(),
+
     );
   }
 }

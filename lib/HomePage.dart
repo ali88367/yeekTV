@@ -20,7 +20,6 @@ class _HomepageState extends State<Homepage> {
   final ScrollController _scrollController = ScrollController();
   final homepageController HomePageController = Get.put(homepageController());
 
-  // <<< ADD THIS >>>
   bool _showQuestions = true;
 
   @override
@@ -31,9 +30,13 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
-  // -------------------------------------------------
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   // Helper for social icons
-  // -------------------------------------------------
   Widget _socialIcon(String asset) {
     return Image.asset(
       asset,
@@ -48,17 +51,16 @@ class _HomepageState extends State<Homepage> {
       child: Scaffold(
         body: Stack(
           children: [
-            // -------------------------------------------------
             // Scrollable background + content
-            // -------------------------------------------------
             SingleChildScrollView(
               controller: _scrollController,
               child: Container(
+                height: Get.height * 2.7,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
-                    image: AssetImage('assets/back3.png'),
+                    image: AssetImage('assets/back1.PNG'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -66,7 +68,7 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     SizedBox(height: 95.h),
                     Image.asset('assets/newLogo.png'),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 25.h),
 
                     // ------------------- Animated Text Section -------------------
                     Container(
@@ -84,7 +86,7 @@ class _HomepageState extends State<Homepage> {
                                 child: Stack(
                                   children: [
                                     Text(
-                                      '& broadcasting',
+                                      '& Broadcasting',
                                       style: TextStyle(
                                         fontSize: 50.sp,
                                         fontFamily: 'evang',
@@ -95,7 +97,7 @@ class _HomepageState extends State<Homepage> {
                                       ),
                                     ),
                                     Text(
-                                      '& broadcasting',
+                                      '& Broadcasting',
                                       style: TextStyle(
                                         fontSize: 50.sp,
                                         fontFamily: 'evang',
@@ -210,48 +212,22 @@ class _HomepageState extends State<Homepage> {
                                           ),
                                         ],
                                       ),
-                                      AnimatedTextKit(
-                                        isRepeatingAnimation: false,
-                                        onFinished: () {
-                                          HomePageController.showBroadcast.value = true;
-                                          Future.delayed(const Duration(seconds: 5))
-                                              .then((_) => HomePageController.showBroadcast.value = false);
-                                        },
-                                        animatedTexts: [
-                                          FadeAnimatedText(
-                                            '',
-                                            textStyle: TextStyle(
-                                              fontSize: 30.sp,
-                                              height: 1,
-                                              fontFamily: 'evang',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          FadeAnimatedText(
-                                            ' ART',
-                                            textStyle: TextStyle(
-                                              fontSize: 30.sp,
-                                              height: 1,
-                                              fontFamily: 'evang',
-                                              shadows: const [
-                                                Shadow(offset: Offset(1, 1), color: Colors.black, blurRadius: 2)
-                                              ],
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          FadeAnimatedText(
-                                            ' MUSIC',
-                                            textStyle: TextStyle(
-                                              fontSize: 30.sp,
-                                              height: 0.8,
-                                              fontFamily: 'evang',
-                                              shadows: const [
-                                                Shadow(offset: Offset(1, 1), color: Colors.black, blurRadius: 2)
-                                              ],
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
+                                      // Custom Fade-In Sequence
+                                      DefaultTextStyle(
+                                        style: TextStyle(
+                                          fontSize: 30.sp,
+                                          fontFamily: 'evang',
+                                          color: Colors.white,
+                                        ),
+                                        child: AnimatedTextSequence(
+                                          texts: ['', ' ART', ' MUSIC'],
+                                          onFinish: () {
+                                            HomePageController.showBroadcast.value = true;
+                                            Future.delayed(const Duration(seconds: 5)).then(
+                                                  (_) => HomePageController.showBroadcast.value = false,
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -308,7 +284,7 @@ class _HomepageState extends State<Homepage> {
                       height: 70.h,
                       'assets/singlefront.png',
                     ),
-
+                    const Spacer(),
                     Stack(
                       children: [
                         Text(
@@ -335,8 +311,7 @@ class _HomepageState extends State<Homepage> {
                       ],
                     ),
 
-                    SizedBox(height: 12.h),
-
+                    SizedBox(height: 20.h),
                     // Social icons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -412,25 +387,21 @@ class _HomepageState extends State<Homepage> {
                   child: Container(
                     width: 180.w,
                     height: 120.h,
-
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE5E5E5), // light gray
+                      color: const Color(0xFFE5E5E5),
                       borderRadius: BorderRadius.circular(6.r),
-
-
                     ),
                     child: Stack(
                       children: [
-                        // ----- Main content -----
+                        // Main content
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            SizedBox(height: 10.h,),
+                            SizedBox(height: 10.h),
                             Text(
                               "Got Questions?",
                               style: TextStyle(
-
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -440,25 +411,19 @@ class _HomepageState extends State<Homepage> {
                             Text(
                               "Chat with an expert.",
                               style: TextStyle(
-
                                 fontSize: 11.sp,
                                 color: Colors.black,
                               ),
                             ),
-Spacer(),
-                            // ----- Action button -----
+                            const Spacer(),
+                            // Action button
                             InkWell(
                               borderRadius: BorderRadius.circular(30.r),
                               onTap: () {
-                                // Get.snackbar(
-                                //   "Chat",
-                                //   "Opening support chat…",
-                                //   backgroundColor: Colors.black,
-                                //   colorText: Colors.white,
-                                // );
+                                // Get.snackbar("Chat", "Opening support chat…");
                               },
                               child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 17.w,vertical: 10.h),
+                                margin: EdgeInsets.symmetric(horizontal: 17.w, vertical: 10.h),
                                 width: double.infinity,
                                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
                                 decoration: BoxDecoration(
@@ -470,7 +435,6 @@ Spacer(),
                                   child: Text(
                                     "Let’s get started",
                                     style: TextStyle(
-                                  
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
@@ -481,8 +445,7 @@ Spacer(),
                             ),
                           ],
                         ),
-
-                        // ----- Close “x” -----
+                        // Close button
                         Positioned(
                           top: 4,
                           right: 4,
@@ -497,7 +460,7 @@ Spacer(),
                       ],
                     ),
                   ),
-                ).addTail(), // <-- speech-bubble tail
+                ).addTail(),
               ),
           ],
         ),
@@ -507,7 +470,123 @@ Spacer(),
 }
 
 // -------------------------------------------------
-// EXTENSION: adds the speech-bubble tail
+// Custom Outlined Text Widget
+// -------------------------------------------------
+class _OutlinedText extends StatelessWidget {
+  final String text;
+  final double fontSize;
+  final double height;
+
+  const _OutlinedText({
+    Key? key,
+    required this.text,
+    required this.fontSize,
+    required this.height,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // Outline
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: fontSize,
+            height: height,
+            fontFamily: 'evang',
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 2.5
+              ..color = Colors.black,
+          ),
+        ),
+        // Fill
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: fontSize,
+            height: height,
+            fontFamily: 'evang',
+            color: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// -------------------------------------------------
+// Animated Text Sequence (Fade In: ART → MUSIC)
+// -------------------------------------------------
+class AnimatedTextSequence extends StatefulWidget {
+  final List<String> texts;
+  final VoidCallback onFinish;
+
+  const AnimatedTextSequence({
+    Key? key,
+    required this.texts,
+    required this.onFinish,
+  }) : super(key: key);
+
+  @override
+  State<AnimatedTextSequence> createState() => _AnimatedTextSequenceState();
+}
+
+class _AnimatedTextSequenceState extends State<AnimatedTextSequence>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+    _startNext();
+  }
+
+  void _startNext() {
+    if (_index >= widget.texts.length) {
+      widget.onFinish();
+      return;
+    }
+
+    _controller.forward(from: 0).then((_) {
+      Future.delayed(const Duration(milliseconds: 800), () {
+        if (mounted) {
+          setState(() => _index++);
+          _startNext();
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_index >= widget.texts.length) return const SizedBox();
+
+    return FadeTransition(
+      opacity: _controller,
+      child: _OutlinedText(
+        text: widget.texts[_index],
+        fontSize: 30.sp,
+        height: _index == 2 ? 0.8 : 1.0, // MUSIC has tighter line height
+      ),
+    );
+  }
+}
+
+// -------------------------------------------------
+// Extension: Adds speech-bubble tail
 // -------------------------------------------------
 extension QuestionsTail on Widget {
   Widget addTail() {
@@ -528,7 +607,7 @@ extension QuestionsTail on Widget {
 }
 
 // -------------------------------------------------
-// CUSTOM PAINTER for the tail
+// Custom Painter for Tail
 // -------------------------------------------------
 class _SpeechBubbleTailPainter extends CustomPainter {
   @override
@@ -538,14 +617,13 @@ class _SpeechBubbleTailPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final path = Path()
-      ..moveTo(0, size.height * 0.5)               // left point
-      ..lineTo(size.width * 0.6, 0)                // top-right
-      ..lineTo(size.width * 0.6, size.height)      // bottom-right
+      ..moveTo(0, size.height * 0.5)
+      ..lineTo(size.width * 0.6, 0)
+      ..lineTo(size.width * 0.6, size.height)
       ..close();
 
     canvas.drawPath(path, paint);
 
-    // subtle shadow
     canvas.drawPath(
       path,
       Paint()

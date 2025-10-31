@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yeektv/HomePage.dart';
-import 'package:yeektv/Login.dart';
+import 'package:yeektv/auth/Login.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -26,19 +27,34 @@ class SignupScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Logo
-                Image.asset('assets/newLogo.png', width: 250),
+                Image.asset('assets/newLogo.png', width: 450),
                 const SizedBox(height: 20),
 
-                // Title
-                Text(
-                  'Create Account',
-                  style: GoogleFonts.vt323(
-                    fontSize: 48,
-                    color: Colors.white,
-                    shadows: [
-                      const Shadow(blurRadius: 10.0, color: Colors.black)
-                    ],
-                  ),
+                Stack(
+                  children: [
+                    Text(
+                      'Create Account',
+                      style: TextStyle(
+                        height: 1,
+                        fontSize: 40.sp,
+                        fontFamily: 'evang',
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 2
+                          ..color = Colors.black,
+                      ),
+                    ),
+                    Text(
+                      'Create Account',
+                      style: TextStyle(
+                        height: 1,
+                        fontSize: 40.sp,
+                        fontFamily: 'evang',
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+
                 ),
                 const SizedBox(height: 30),
 
@@ -89,12 +105,23 @@ class SignupScreen extends StatelessWidget {
 
                 // Login Link
                 RichText(
+                  textAlign: TextAlign.center,
                   text: TextSpan(
-                    style: const TextStyle(color: Colors.white70, fontSize: 14),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      height: 1.3,
+                      fontFamily: 'jost', // optional, clean modern look
+                    ),
                     children: [
-                      const TextSpan(text: "Already have an account? "),
                       TextSpan(
-                        text: 'Login',
+                        text: "Already have an account? ",
+                        style: TextStyle(
+                          color: Colors.grey[300], // soft light gray
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Log In',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -102,7 +129,7 @@ class SignupScreen extends StatelessWidget {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.pop(context);
+                            Get.to(LoginScreen());
                           },
                       ),
                     ],
