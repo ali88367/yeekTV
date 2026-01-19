@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yeektv/screens/audio_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -117,7 +118,10 @@ class CustomDrawer extends StatelessWidget {
                 width: double.infinity,
                 height: 42.h,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context); // Close the drawer
+                    Get.to(const AudioScreen()); // Navigate to audio page
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent,
                     shape: RoundedRectangleBorder(

@@ -305,7 +305,7 @@ class VideoPlayerScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Obx(
-                        () => ElevatedButton.icon(
+                    () => ElevatedButton.icon(
                       onPressed: controller.toggleChat,
                       icon: Icon(
                         controller.isChatVisible.value
@@ -346,349 +346,355 @@ class VideoPlayerScreen extends StatelessWidget {
       // --- MODIFICATION START ---
       // Replaced the original `Container` with a `Stack` to ensure the background
       // image always fills the screen, independent of the content's height.
-        body: WillPopScope(
+      body: WillPopScope(
         onWillPop: () async {
-    controller.videoController.pause();
-    return true;
-    },
-    child:
-
-      Stack(
-        children: [
-          // Layer 1: Background Image
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/wall.jpg'),
-                fit: BoxFit.cover,
+          controller.videoController.pause();
+          return true;
+        },
+        child: Stack(
+          children: [
+            // Layer 1: Background Image
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/wall.jpg'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          // Layer 2: Scrollable Content
-          SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Column(
-                children: [
-                  SizedBox(height: 15.h),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12.r),
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: 140.h,
-                          color: Colors.black,
-                          child: GetBuilder<VideoController>(
-                            builder: (ctrl) =>
-                            ctrl.videoController.value.isInitialized
-                                ? vp.VideoPlayer(ctrl.videoController)
-                                : const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.red,
-                              ),
+            // Layer 2: Scrollable Content
+            SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: Column(
+                  children: [
+                    SizedBox(height: 15.h),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12.r),
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: 140.h,
+                            color: Colors.black,
+                            child: GetBuilder<VideoController>(
+                              builder: (ctrl) =>
+                                  ctrl.videoController.value.isInitialized
+                                  ? vp.VideoPlayer(ctrl.videoController)
+                                  : const Center(
+                                      child: CircularProgressIndicator(
+                                        color: Colors.red,
+                                      ),
+                                    ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
-                                colors: [
-                                  Colors.black.withOpacity(0.7),
-                                  Colors.transparent,
-                                ],
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  colors: [
+                                    Colors.black.withOpacity(0.7),
+                                    Colors.transparent,
+                                  ],
+                                ),
                               ),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Obx(
-                                          () => GestureDetector(
-                                        onTap: controller.togglePlayPause,
-                                        child: Container(
-                                          padding: const EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Colors.red.shade400,
-                                                Colors.red.shade600,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Obx(
+                                        () => GestureDetector(
+                                          onTap: controller.togglePlayPause,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Colors.red.shade400,
+                                                  Colors.red.shade600,
+                                                ],
+                                              ),
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.red.withOpacity(
+                                                    0.4,
+                                                  ),
+                                                  blurRadius: 8,
+                                                ),
                                               ],
                                             ),
-                                            shape: BoxShape.circle,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.red.withOpacity(
-                                                  0.4,
-                                                ),
-                                                blurRadius: 8,
-                                              ),
-                                            ],
+                                            child: Icon(
+                                              controller.isPlaying.value
+                                                  ? Icons.pause
+                                                  : Icons.play_arrow,
+                                              color: Colors.white,
+                                              size: 24,
+                                            ),
                                           ),
-                                          child: Icon(
-                                            controller.isPlaying.value
-                                                ? Icons.pause
-                                                : Icons.play_arrow,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Obx(
+                                        () => Text(
+                                          controller
+                                                  .videoController
+                                                  .value
+                                                  .isInitialized
+                                              ? '${controller.formatDuration(controller.currentPosition.value)} / ${controller.formatDuration(controller.totalDuration.value)}'
+                                              : '0:00 / 0:00',
+                                          style: const TextStyle(
                                             color: Colors.white,
-                                            size: 24,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Obx(
-                                          () => Text(
-                                        controller.videoController.value
-                                            .isInitialized
-                                            ? '${controller.formatDuration(controller.currentPosition.value)} / ${controller.formatDuration(controller.totalDuration.value)}'
-                                            : '0:00 / 0:00',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
+                                      const Spacer(),
+                                      Obx(
+                                        () => GestureDetector(
+                                          onTap: controller.toggleMute,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Colors.white,
+                                                  Colors.grey,
+                                                ],
+                                              ),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Icon(
+                                              controller.isMuted.value
+                                                  ? Icons.volume_off
+                                                  : Icons.volume_up,
+                                              color: Colors.black87,
+                                              size: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const Spacer(),
-                                    Obx(
-                                          () => GestureDetector(
-                                        onTap: controller.toggleMute,
+                                      const SizedBox(width: 12),
+                                      GestureDetector(
+                                        onTap: controller.toggleFullscreen,
                                         child: Container(
                                           padding: const EdgeInsets.all(6),
                                           decoration: BoxDecoration(
                                             gradient: LinearGradient(
                                               colors: [
-                                                Colors.white,
-                                                Colors.grey
+                                                Colors.blue.shade400,
+                                                Colors.blue.shade600,
                                               ],
                                             ),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: Icon(
-                                            controller.isMuted.value
-                                                ? Icons.volume_off
-                                                : Icons.volume_up,
-                                            color: Colors.black87,
+                                          child: const Icon(
+                                            Icons.fullscreen,
+                                            color: Colors.white,
                                             size: 20,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    GestureDetector(
-                                      onTap: controller.toggleFullscreen,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(6),
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Colors.blue.shade400,
-                                              Colors.blue.shade600,
-                                            ],
-                                          ),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: const Icon(
-                                          Icons.fullscreen,
-                                          color: Colors.white,
-                                          size: 20,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                  ],
-                                ),
-                                const SizedBox(height: 4),
-                                GetBuilder<VideoController>(
-                                  builder: (ctrl) => ctrl.videoController.value
-                                      .isInitialized
-                                      ? vp.VideoProgressIndicator(
-                                    ctrl.videoController,
-                                    allowScrubbing: true,
-                                    colors: const vp.VideoProgressColors(
-                                      playedColor: Colors.red,
-                                      bufferedColor: Colors.grey,
-                                      backgroundColor: Colors.white24,
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 4,
-                                    ),
-                                  )
-                                      : const SizedBox.shrink(),
-                                ),
-                              ],
+                                      const SizedBox(width: 8),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 4),
+                                  GetBuilder<VideoController>(
+                                    builder: (ctrl) =>
+                                        ctrl.videoController.value.isInitialized
+                                        ? vp.VideoProgressIndicator(
+                                            ctrl.videoController,
+                                            allowScrubbing: true,
+                                            colors:
+                                                const vp.VideoProgressColors(
+                                                  playedColor: Colors.red,
+                                                  bufferedColor: Colors.grey,
+                                                  backgroundColor:
+                                                      Colors.white24,
+                                                ),
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 4,
+                                            ),
+                                          )
+                                        : const SizedBox.shrink(),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Card(
-                    color: Colors.white,
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.r),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "80's & 90's Pop Hits",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(height: 1.5.h),
-                          Text(
-                            '1,247 watching now',
-                            style:
-                            TextStyle(color: Colors.black, fontSize: 9.sp),
-                          ),
-                          SizedBox(height: 1.5.h),
-                          Text(
-                            'Started streaming on Dec 2, 2025',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 10.sp,
-                            ),
-                          ),
-                          SizedBox(height: 6.h),
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 15.sp,
-                                backgroundImage: const AssetImage(
-                                  'assets/man.jpeg',
-                                ),
-                              ),
-                              SizedBox(width: 6.w),
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'DJ Retro',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    SizedBox(width: 4.w),
-                                    Icon(
-                                      Icons.check,
-                                      size: 16.sp,
-                                      color: Colors.blue,
-                                    ),
-                                    SizedBox(width: 6.w),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(top: 2.h),
-                                        child: Text(
-                                          '12.5K subscribers',
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 9.sp,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () => Get.snackbar(
-                                  'Subscribed!',
-                                  'You are now subscribed to DJ Retro',
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  backgroundColor: Colors.red,
-                                  colorText: Colors.white,
-                                  duration: const Duration(seconds: 2),
-                                ),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 8,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(18),
-                                  ),
-                                  child: Text(
-                                    'Subscribe',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9.sp,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 6.h),
-                          Row(
-                            children: [
-                              _buildActionChip(
-                                Icons.remove_red_eye_outlined,
-                                '425',
-                              ),
-                              const SizedBox(width: 8),
-                              _buildActionChip(Icons.share, '187'),
-                            ],
-                          ),
-                          SizedBox(height: 5.h),
                         ],
                       ),
                     ),
-                  ),
-                  SizedBox(height: 6.h),
-                  // --- MODIFICATION START ---
-                  // Wrapped the chat section in an AnimatedSwitcher for a smooth
-                  // collapse/expand animation when hiding/showing.
-                  Obx(
-                        () => AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return SizeTransition(
-                          sizeFactor: animation,
-                          child: child,
-                        );
-                      },
-                      child: controller.isChatVisible.value
-                          ? _buildChatSection(controller)
-                      // Use an empty container with a unique key to help the
-                      // AnimatedSwitcher detect the change.
-                          : Container(key: const ValueKey('chat_hidden')),
+                    SizedBox(height: 8.h),
+                    Card(
+                      color: Colors.white,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(8.r),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "80's & 90's Pop Hits",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(height: 1.5.h),
+                            Text(
+                              '1,247 watching now',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 9.sp,
+                              ),
+                            ),
+                            SizedBox(height: 1.5.h),
+                            Text(
+                              'Started streaming on Dec 2, 2025',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 10.sp,
+                              ),
+                            ),
+                            SizedBox(height: 6.h),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 15.sp,
+                                  backgroundImage: const AssetImage(
+                                    'assets/man.jpeg',
+                                  ),
+                                ),
+                                SizedBox(width: 6.w),
+                                Expanded(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'DJ Retro',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(width: 4.w),
+                                      Icon(
+                                        Icons.check,
+                                        size: 16.sp,
+                                        color: Colors.blue,
+                                      ),
+                                      SizedBox(width: 6.w),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(top: 2.h),
+                                          child: Text(
+                                            '12.5K subscribers',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 9.sp,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () => Get.snackbar(
+                                    'Subscribed!',
+                                    'You are now subscribed to DJ Retro',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                    duration: const Duration(seconds: 2),
+                                  ),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 8,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                    child: Text(
+                                      'Subscribe',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 9.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 6.h),
+                            Row(
+                              children: [
+                                _buildActionChip(
+                                  Icons.remove_red_eye_outlined,
+                                  '425',
+                                ),
+                                const SizedBox(width: 8),
+                                _buildActionChip(Icons.share, '187'),
+                              ],
+                            ),
+                            SizedBox(height: 5.h),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                  // --- MODIFICATION END ---
-                ],
+                    SizedBox(height: 6.h),
+                    // --- MODIFICATION START ---
+                    // Wrapped the chat section in an AnimatedSwitcher for a smooth
+                    // collapse/expand animation when hiding/showing.
+                    Obx(
+                      () => AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                              return SizeTransition(
+                                sizeFactor: animation,
+                                child: child,
+                              );
+                            },
+                        child: controller.isChatVisible.value
+                            ? _buildChatSection(controller)
+                            // Use an empty container with a unique key to help the
+                            // AnimatedSwitcher detect the change.
+                            : Container(key: const ValueKey('chat_hidden')),
+                      ),
+                    ),
+                    // --- MODIFICATION END ---
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+        // --- MODIFICATION END ---
       ),
-      // --- MODIFICATION END ---
-    ));
+    );
   }
 
   // All helper methods below this point remain unchanged
@@ -713,7 +719,7 @@ class VideoPlayerScreen extends StatelessWidget {
             ),
           ],
         ),
-        height: MediaQuery.of(Get.context!).size.height * 0.45,
+        height: MediaQuery.of(Get.context!).size.height * 0.41,
         child: Column(
           children: [
             Container(
@@ -823,7 +829,7 @@ class VideoPlayerScreen extends StatelessWidget {
                   ),
                 ),
                 child: Obx(
-                      () => ListView.builder(
+                  () => ListView.builder(
                     padding: const EdgeInsets.all(16),
                     itemCount: controller.chatMessages.length,
                     itemBuilder: (context, index) =>
@@ -976,8 +982,10 @@ class VideoPlayerScreen extends StatelessWidget {
         children: [
           Icon(icon, color: Colors.white, size: 16),
           const SizedBox(width: 6),
-          Text(count,
-              style: const TextStyle(color: Colors.white, fontSize: 12)),
+          Text(
+            count,
+            style: const TextStyle(color: Colors.white, fontSize: 12),
+          ),
         ],
       ),
     );
@@ -1021,8 +1029,7 @@ class VideoPlayerScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color:
-                      (message['avatarColor'] as Color).withOpacity(0.3),
+                      color: (message['avatarColor'] as Color).withOpacity(0.3),
                       blurRadius: 6,
                       offset: const Offset(0, 2),
                     ),
@@ -1187,17 +1194,17 @@ class VideoPlayerScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         gradient: isLiked
                             ? LinearGradient(
-                          colors: [
-                            Colors.red.shade400,
-                            Colors.red.shade600,
-                          ],
-                        )
+                                colors: [
+                                  Colors.red.shade400,
+                                  Colors.red.shade600,
+                                ],
+                              )
                             : LinearGradient(
-                          colors: [
-                            Colors.grey.shade300,
-                            Colors.grey.shade200,
-                          ],
-                        ),
+                                colors: [
+                                  Colors.grey.shade300,
+                                  Colors.grey.shade200,
+                                ],
+                              ),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -1225,7 +1232,7 @@ class VideoPlayerScreen extends StatelessWidget {
                     onTap: () {
                       controller.replyToUsername.value = message['username'];
                       controller.replyController.text =
-                      '@${message['username']} ';
+                          '@${message['username']} ';
                       Get.bottomSheet(
                         Container(
                           decoration: BoxDecoration(
@@ -1257,7 +1264,6 @@ class VideoPlayerScreen extends StatelessWidget {
                                 TextField(
                                   controller: controller.replyController,
                                   decoration: InputDecoration(
-
                                     hintText: 'Write a reply...',
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24),
@@ -1274,13 +1280,11 @@ class VideoPlayerScreen extends StatelessWidget {
                                       ),
                                     ),
                                     border: OutlineInputBorder(
-
                                       borderRadius: BorderRadius.circular(12),
                                     ),
 
                                     filled: true,
                                     fillColor: Colors.grey[50],
-
                                   ),
 
                                   autofocus: true,
@@ -1291,7 +1295,10 @@ class VideoPlayerScreen extends StatelessWidget {
                                     Expanded(
                                       child: TextButton(
                                         onPressed: () => Get.back(),
-                                        child: const Text('Cancel',style: TextStyle(color: Colors.black),),
+                                        child: const Text(
+                                          'Cancel',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
                                       ),
                                     ),
                                     ElevatedButton(
@@ -1419,8 +1426,8 @@ class VideoPlayerScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               reply['isLiked'] = !replyLiked;
-                              reply['likes'] = (reply['likes'] ?? 0) +
-                                  (replyLiked ? -1 : 1);
+                              reply['likes'] =
+                                  (reply['likes'] ?? 0) + (replyLiked ? -1 : 1);
                               controller.chatMessages.refresh();
                             },
                             child: Row(

@@ -1,11 +1,13 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yeektv/Controller/homepageController.dart';
 import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import 'package:yeektv/VideoPlayerScreen.dart';
+import 'package:yeektv/screens/audio_screen.dart';
 
 import 'Widgets/Drawer/CustomDrawer.dart';
 
@@ -38,406 +40,371 @@ class _HomepageState extends State<Homepage> {
 
   // Helper for social icons
   Widget _socialIcon(String asset) {
-    return Image.asset(
-      asset,
-      width: 46.w,
-      height: 46.w,
-    );
+    return Image.asset(asset, width: 46.w, height: 46.w);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            // Scrollable background + content
-            SingleChildScrollView(
-              controller: _scrollController,
-              child: Container(
-                height: Get.height * 2.7,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                    image: AssetImage('assets/back1.PNG'),
-                    fit: BoxFit.cover,
+      body: Obx(
+        () => AnnotatedRegion<SystemUiOverlayStyle>(
+          value: HomePageController.isScrolled.value
+              ? SystemUiOverlayStyle.dark
+              : SystemUiOverlayStyle.light,
+          child: Stack(
+            children: [
+              // Scrollable background + content
+              SingleChildScrollView(
+                controller: _scrollController,
+                child: Container(
+                  height: Get.height * 2.7,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.transparent,
+                    image: DecorationImage(
+                      image: AssetImage('assets/back1.PNG'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(height: 95.h),
-                    Image.asset('assets/newLogo.png'),
-                    SizedBox(height: 25.h),
-            
-                    // ------------------- Animated Text Section -------------------
-                    Container(
-                      height: 170.h,
-                      color: Colors.transparent,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 16.w),
-                        child: Obx(
-                              () => HomePageController.showBroadcast.value == true
-                              ? Center(
-                            child: ZoomIn(
-                              config: BaseAnimationConfig(
-                                delay: const Duration(seconds: 1),
-                                duration: const Duration(seconds: 2),
-                                child: Stack(
-                                  children: [
-                                    Text(
-                                      '& Broadcasting',
-                                      style: TextStyle(
-                                        fontSize: 50.sp,
-                                        fontFamily: 'evang',
-                                        foreground: Paint()
-                                          ..style = PaintingStyle.stroke
-                                          ..strokeWidth = 3
-                                          ..color = Colors.black,
-                                      ),
-                                    ),
-                                    Text(
-                                      '& Broadcasting',
-                                      style: TextStyle(
-                                        fontSize: 50.sp,
-                                        fontFamily: 'evang',
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                              : Column(
-                            children: [
-                              SlideInLeft(
-                                config: BaseAnimationConfig(
-                                  delay: const Duration(seconds: 3),
-                                  duration: const Duration(milliseconds: 1500),
-                                  child: Row(
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Text(
-                                            'WE ARE TAKING IT BACK TO THE',
-                                            style: TextStyle(
-                                              height: 1,
-                                              fontSize: 30.sp,
-                                              fontFamily: 'evang',
-                                              foreground: Paint()
-                                                ..style = PaintingStyle.stroke
-                                                ..strokeWidth = 2
-                                                ..color = Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            'WE ARE TAKING IT BACK TO THE',
-                                            style: TextStyle(
-                                              height: 1,
-                                              fontSize: 30.sp,
-                                              fontFamily: 'evang',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SlideInRight(
-                                config: BaseAnimationConfig(
-                                  delay: const Duration(seconds: 6),
-                                  duration: const Duration(milliseconds: 1500),
-                                  child: Row(
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Text(
-                                            'ESSENCE OF ORIGINALITY',
-                                            style: TextStyle(
-                                              height: 1,
-                                              fontSize: 30.sp,
-                                              fontFamily: 'evang',
-                                              foreground: Paint()
-                                                ..style = PaintingStyle.stroke
-                                                ..strokeWidth = 2
-                                                ..color = Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            'ESSENCE OF ORIGINALITY',
-                                            style: TextStyle(
-                                              height: 1,
-                                              fontSize: 30.sp,
-                                              fontFamily: 'evang',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SlideInRight(
-                                config: BaseAnimationConfig(
-                                  delay: const Duration(seconds: 9),
-                                  duration: const Duration(milliseconds: 1500),
-                                  child: Row(
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Text(
-                                            'IN CREATING ... ',
-                                            style: TextStyle(
-                                              height: 1,
-                                              fontSize: 30.sp,
-                                              fontFamily: 'evang',
-                                              foreground: Paint()
-                                                ..style = PaintingStyle.stroke
-                                                ..strokeWidth = 2
-                                                ..color = Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            'IN CREATING ... ',
-                                            style: TextStyle(
-                                              height: 1,
-                                              fontSize: 30.sp,
-                                              fontFamily: 'evang',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      // Custom Fade-In Sequence
-                                      DefaultTextStyle(
-                                        style: TextStyle(
-                                          fontSize: 30.sp,
-                                          fontFamily: 'evang',
-                                          color: Colors.white,
-                                        ),
-                                        child: AnimatedTextSequence(
-                                          texts: ['', ' ART', ' MUSIC'],
-                                          onFinish: () {
-                                            HomePageController.showBroadcast.value = true;
-                                            Future.delayed(const Duration(seconds: 5)).then(
-                                                  (_) => HomePageController.showBroadcast.value = false,
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-            
-                    SizedBox(height: 20.h),
-            
-                    // ------------------- Plan Section -------------------
-                    Column(
-                      children: [
-                        Center(
-                          child: Container(
-                            height: 38.h,
-                            width: 160.w,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: Colors.black, width: 1.25),
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15.w),
-                              child: Center(
-                                child: Text(
-                                  "Choose your plan",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14.sp,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 15.h),
-                        Container(
-                          height: 350.h,
-                          width: 250.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.grey[300],
-                          ),
-                        ),
-                      ],
-                    ),
-            
-                    Image.asset(
-                      height: 70.h,
-                      'assets/singlefront.png',
-                    ),
-                    const Spacer(),
-                    Stack(
-                      children: [
-                        Text(
-                          'YEEK TV',
-                          style: TextStyle(
-                            fontSize: 50.sp,
-                            height: 1,
-                            fontFamily: 'evang',
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 3
-                              ..color = Colors.black,
-                          ),
-                        ),
-                        Text(
-                          'YEEK TV',
-                          style: TextStyle(
-                            fontSize: 50.sp,
-                            height: 1,
-                            fontFamily: 'evang',
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-            
-                    SizedBox(height: 20.h),
-                    // Social icons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _socialIcon('assets/fb.png'),
-                        SizedBox(width: 24.w),
-                        _socialIcon('assets/insta.png'),
-                        SizedBox(width: 24.w),
-                        _socialIcon('assets/youtube.png'),
-                        SizedBox(width: 24.w),
-                        _socialIcon('assets/twitter.png'),
-                      ],
-                    ),
-                    SizedBox(height: 30.h),
-                  ],
-                ),
-              ),
-            ),
-            
-            // ------------------- Sticky Header -------------------
-            Positioned(
-              child: Obx(() => Container(
-                color: HomePageController.isScrolled.value ? Colors.white : Colors.transparent,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () => Get.to(CustomDrawer()),
-                        child: Icon(
-                          Icons.menu,
-                          color: HomePageController.isScrolled.value ? Colors.black : Colors.white,
-                          size: 55.r,
+                      SizedBox(height: 95.h),
+                      Image.asset('assets/newLogo.png'),
+                      SizedBox(height: 25.h),
+
+                      // ------------------- Animated Text Section -------------------
+                      Container(
+                        height: 170.h,
+                        color: Colors.transparent,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 16.w),
+                          child: Obx(
+                            () => HomePageController.showBroadcast.value == true
+                                ? Center(
+                                    child: ZoomIn(
+                                      config: BaseAnimationConfig(
+                                        delay: const Duration(seconds: 1),
+                                        duration: const Duration(seconds: 2),
+                                        child: Stack(
+                                          children: [
+                                            Text(
+                                              '& Broadcasting',
+                                              style: TextStyle(
+                                                fontSize: 50.sp,
+                                                fontFamily: 'evang',
+                                                foreground: Paint()
+                                                  ..style = PaintingStyle.stroke
+                                                  ..strokeWidth = 3
+                                                  ..color = Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              '& Broadcasting',
+                                              style: TextStyle(
+                                                fontSize: 50.sp,
+                                                fontFamily: 'evang',
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      SlideInLeft(
+                                        config: BaseAnimationConfig(
+                                          delay: const Duration(seconds: 3),
+                                          duration: const Duration(
+                                            milliseconds: 1500,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Stack(
+                                                children: [
+                                                  Text(
+                                                    'WE ARE TAKING IT BACK TO THE',
+                                                    style: TextStyle(
+                                                      height: 1,
+                                                      fontSize: 30.sp,
+                                                      fontFamily: 'evang',
+                                                      foreground: Paint()
+                                                        ..style =
+                                                            PaintingStyle.stroke
+                                                        ..strokeWidth = 2
+                                                        ..color = Colors.black,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'WE ARE TAKING IT BACK TO THE',
+                                                    style: TextStyle(
+                                                      height: 1,
+                                                      fontSize: 30.sp,
+                                                      fontFamily: 'evang',
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SlideInRight(
+                                        config: BaseAnimationConfig(
+                                          delay: const Duration(seconds: 6),
+                                          duration: const Duration(
+                                            milliseconds: 1500,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Stack(
+                                                children: [
+                                                  Text(
+                                                    'ESSENCE OF ORIGINALITY',
+                                                    style: TextStyle(
+                                                      height: 1,
+                                                      fontSize: 30.sp,
+                                                      fontFamily: 'evang',
+                                                      foreground: Paint()
+                                                        ..style =
+                                                            PaintingStyle.stroke
+                                                        ..strokeWidth = 2
+                                                        ..color = Colors.black,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'ESSENCE OF ORIGINALITY',
+                                                    style: TextStyle(
+                                                      height: 1,
+                                                      fontSize: 30.sp,
+                                                      fontFamily: 'evang',
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SlideInRight(
+                                        config: BaseAnimationConfig(
+                                          delay: const Duration(seconds: 9),
+                                          duration: const Duration(
+                                            milliseconds: 1500,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Stack(
+                                                children: [
+                                                  Text(
+                                                    'IN CREATING ... ',
+                                                    style: TextStyle(
+                                                      height: 1,
+                                                      fontSize: 30.sp,
+                                                      fontFamily: 'evang',
+                                                      foreground: Paint()
+                                                        ..style =
+                                                            PaintingStyle.stroke
+                                                        ..strokeWidth = 2
+                                                        ..color = Colors.black,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'IN CREATING ... ',
+                                                    style: TextStyle(
+                                                      height: 1,
+                                                      fontSize: 30.sp,
+                                                      fontFamily: 'evang',
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              // Custom Fade-In Sequence
+                                              DefaultTextStyle(
+                                                style: TextStyle(
+                                                  fontSize: 30.sp,
+                                                  fontFamily: 'evang',
+                                                  color: Colors.white,
+                                                ),
+                                                child: AnimatedTextSequence(
+                                                  texts: ['', ' ART', ' MUSIC'],
+                                                  onFinish: () {
+                                                    HomePageController
+                                                            .showBroadcast
+                                                            .value =
+                                                        true;
+                                                    Future.delayed(
+                                                      const Duration(
+                                                        seconds: 5,
+                                                      ),
+                                                    ).then(
+                                                      (_) =>
+                                                          HomePageController
+                                                                  .showBroadcast
+                                                                  .value =
+                                                              false,
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                          ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () => Get.to(const VideoPlayerScreen()),
-                        child: Container(
-                          height: 38.h,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.black, width: 1.25),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.w),
-                            child: Center(
-                              child: Text(
-                                "Start Listening",
-                                style: const TextStyle(
+
+                      SizedBox(height: 20.h),
+
+                      // ------------------- Plan Section -------------------
+                      Column(
+                        children: [
+                          Center(
+                            child: Container(
+                              height: 38.h,
+                              width: 160.w,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
                                   color: Colors.black,
-                                  fontWeight: FontWeight.w700,
+                                  width: 1.25,
+                                ),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                                child: Center(
+                                  child: Text(
+                                    "Choose your plan",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                          SizedBox(height: 15.h),
+                          Container(
+                            height: 350.h,
+                            width: 250.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.grey[300],
+                            ),
+                          ),
+                        ],
                       ),
+
+                      Image.asset(height: 70.h, 'assets/singlefront.png'),
+                      const Spacer(),
+                      Stack(
+                        children: [
+                          Text(
+                            'YEEK TV',
+                            style: TextStyle(
+                              fontSize: 50.sp,
+                              height: 1,
+                              fontFamily: 'evang',
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 3
+                                ..color = Colors.black,
+                            ),
+                          ),
+                          Text(
+                            'YEEK TV',
+                            style: TextStyle(
+                              fontSize: 50.sp,
+                              height: 1,
+                              fontFamily: 'evang',
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 20.h),
+                      // Social icons
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _socialIcon('assets/fb.png'),
+                          SizedBox(width: 24.w),
+                          _socialIcon('assets/insta.png'),
+                          SizedBox(width: 24.w),
+                          _socialIcon('assets/youtube.png'),
+                          SizedBox(width: 24.w),
+                          _socialIcon('assets/twitter.png'),
+                        ],
+                      ),
+                      SizedBox(height: 30.h),
                     ],
                   ),
                 ),
-              )),
-            ),
-            
-            // ------------------- Floating "Got Questions?" Widget -------------------
-            if (_showQuestions)
+              ),
+
+              // ------------------- Sticky Header -------------------
               Positioned(
-                bottom: 18.h,
-                right: 20.w,
-                child: Material(
-                  color: Colors.transparent,
-                  child: Container(
-                    width: 180.w,
-                    height: 120.h,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE5E5E5),
-                      borderRadius: BorderRadius.circular(6.r),
-                    ),
-                    child: Stack(
-                      children: [
-                        // Main content
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Obx(
+                  () => Container(
+                    color: HomePageController.isScrolled.value
+                        ? Colors.white
+                        : Colors.transparent,
+                    child: SafeArea(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.w,
+                          vertical: 8.h,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(height: 10.h),
-                            Text(
-                              "Got Questions?",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                            GestureDetector(
+                              onTap: () => Get.to(CustomDrawer()),
+                              child: Icon(
+                                Icons.menu,
+                                color: HomePageController.isScrolled.value
+                                    ? Colors.black
+                                    : Colors.white,
+                                size: 55.r,
                               ),
                             ),
-                            SizedBox(height: 8.h),
-                            Text(
-                              "Chat with an expert.",
-                              style: TextStyle(
-                                fontSize: 11.sp,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const Spacer(),
-                            // Action button
-                            InkWell(
-                              borderRadius: BorderRadius.circular(30.r),
-                              onTap: () {
-                                // Get.snackbar("Chat", "Opening support chat…");
-                              },
+                            GestureDetector(
+                              onTap: () => Get.to(const AudioScreen()),
                               child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 17.w, vertical: 10.h),
-                                width: double.infinity,
-                                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+                                height: 38.h,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  border: Border.all(color: Colors.black, width: 1.5),
-                                  borderRadius: BorderRadius.circular(30.r),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1.25,
+                                  ),
+                                  borderRadius: BorderRadius.circular(25),
                                 ),
-                                child: Center(
-                                  child: Text(
-                                    "Let’s get started",
-                                    style: TextStyle(
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 15.w,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Start Listening",
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -445,24 +412,113 @@ class _HomepageState extends State<Homepage> {
                             ),
                           ],
                         ),
-                        // Close button
-                        Positioned(
-                          top: 4,
-                          right: 4,
-                          child: GestureDetector(
-                            onTap: () => setState(() => _showQuestions = false),
-                            child: Container(
-                              padding: EdgeInsets.all(4.r),
-                              child: Icon(Icons.close, size: 15.r, color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ).addTail(),
+                ),
               ),
-          ],
+
+              // ------------------- Floating "Got Questions?" Widget -------------------
+              if (_showQuestions)
+                Positioned(
+                  bottom: 18.h,
+                  right: 20.w,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Container(
+                      width: 180.w,
+                      height: 120.h,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE5E5E5),
+                        borderRadius: BorderRadius.circular(6.r),
+                      ),
+                      child: Stack(
+                        children: [
+                          // Main content
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(height: 10.h),
+                              Text(
+                                "Got Questions?",
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(height: 8.h),
+                              Text(
+                                "Chat with an expert.",
+                                style: TextStyle(
+                                  fontSize: 11.sp,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              const Spacer(),
+                              // Action button
+                              InkWell(
+                                borderRadius: BorderRadius.circular(30.r),
+                                onTap: () {
+                                  // Get.snackbar("Chat", "Opening support chat…");
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: 17.w,
+                                    vertical: 10.h,
+                                  ),
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 20.w,
+                                    vertical: 5.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: Colors.black,
+                                      width: 1.5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(30.r),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Let’s get started",
+                                      style: TextStyle(
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          // Close button
+                          Positioned(
+                            top: 4,
+                            right: 4,
+                            child: GestureDetector(
+                              onTap: () =>
+                                  setState(() => _showQuestions = false),
+                              child: Container(
+                                padding: EdgeInsets.all(4.r),
+                                child: Icon(
+                                  Icons.close,
+                                  size: 15.r,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ).addTail(),
+                ),
+            ],
+          ),
         ),
       ),
     );

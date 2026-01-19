@@ -2,6 +2,8 @@
     <!-- Internet Permission (REQUIRED for network video) -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Audio Visualizer Permission (REQUIRED for audio visualization) -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:label="yeektv"

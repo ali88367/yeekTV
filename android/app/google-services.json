@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319399843890",
+    "project_id": "yeektv-b7d38",
+    "storage_bucket": "yeektv-b7d38.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319399843890:android:94c2f6692f6169316cc42b",
+        "android_client_info": {
+          "package_name": "com.example.yeektv"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcyI-L-_vDjdhmIx6_StjQKBa3XhWbiII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
