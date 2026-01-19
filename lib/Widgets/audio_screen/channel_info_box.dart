@@ -165,7 +165,6 @@ class ChannelInfoBox extends StatelessWidget {
                       showParticles.value = false;
                       Future.delayed(const Duration(milliseconds: 200), () {
                         isSubscribed.value = true;
-                        bellAnimationController.forward();
                       });
                     });
                   } else {
@@ -223,12 +222,14 @@ class ChannelInfoBox extends StatelessWidget {
         ),
 
         // Description (if expanded)
-        Obx(() => isExpanded.value
-            ? DescriptionSection(
-                isExpanded: isDescExpanded,
-                audioController: audioController,
-              )
-            : SizedBox()),
+        Obx(
+          () => isExpanded.value
+              ? DescriptionSection(
+                  isExpanded: isDescExpanded,
+                  audioController: audioController,
+                )
+              : SizedBox(),
+        ),
       ],
     );
   }
