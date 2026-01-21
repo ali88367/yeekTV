@@ -5,10 +5,8 @@ import 'custom_painters.dart';
 class ChannelAvatar extends StatelessWidget {
   final AnimationController animationController;
 
-  const ChannelAvatar({
-    Key? key,
-    required this.animationController,
-  }) : super(key: key);
+  const ChannelAvatar({Key? key, required this.animationController})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,7 @@ class ChannelAvatar extends StatelessWidget {
     final borderSize = 106.w; // avatar + 6px border (90 + 6)
 
     return Container(
-      margin: EdgeInsets.only(left: 15.w),
+      margin: EdgeInsets.only(left: 40.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

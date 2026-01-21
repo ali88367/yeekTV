@@ -52,8 +52,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
       final track = controller.currentTrack.value;
       if (track == null) {
         return Container(
-          height: 300.h,
+          width: Get.width * 0.93,
+          height: 210.h,
           alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(0.r),
+            color: Colors.black,
+          ),
           child: Text(
             'Loading radio channel...',
             style: TextStyle(
@@ -81,7 +86,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                   imageUrl: fixS3UrlFormat(track.thumbnail),
                   width: double.infinity,
                   height: double.infinity,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   borderRadius: BorderRadius.circular(0.r),
                 ),
               ),
@@ -453,7 +458,7 @@ class _FullscreenAudioPlayerState extends State<FullscreenAudioPlayer>
                 imageUrl: fixS3UrlFormat(widget.track.thumbnail),
                 width: double.infinity,
                 height: double.infinity,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 borderRadius: BorderRadius.zero,
               ),
             ),
