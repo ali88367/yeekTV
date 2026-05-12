@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:yeektv/auth/SplashScreen.dart';
+import 'package:yeektv/screens/profile/otherProfile.dart';
 
 import 'VideoPlayerScreen.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,6 @@ void main() async {
       splitScreenMode: true,
       builder: (context, child) {
         return const MyApp();
-
       },
     ),
   );
@@ -32,9 +31,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'YeekTV',
-      home:  SplashScreen(),
-
+      home: SplashScreen(),
     );
   }
 }
-

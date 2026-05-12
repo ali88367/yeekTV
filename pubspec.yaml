@@ -98,6 +98,10 @@ flutter:
       fonts:
         - asset: assets/fonts/YeekBold.ttf
           weight: 700
+    - family: YeekItalic
+      fonts:
+        - asset: assets/fonts/Yeek-Italic.ttf
+          weight: 700
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

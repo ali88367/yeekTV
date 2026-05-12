@@ -40,6 +40,8 @@ class AudioPlayerController extends GetxController {
     "tunnel_radio_nyc", // Tunnel Radio NYC
     "west_coast_g_funk_radio", // West Coast G-Funk Radio
     "vintage_pop_rock_radio", // Vintage Pop & Rock Radio
+    "vintage_classical_jazz", // Vintage & Classical Jazz
+    "vintage_reggae_dancehall_radio", // Vintage Reggae & Dancehall Radio
   ];
 
   // Channel names mapping
@@ -48,6 +50,8 @@ class AudioPlayerController extends GetxController {
     "tunnel_radio_nyc": "Tunnel Radio NYC",
     "west_coast_g_funk_radio": "West Coast G-Funk Radio",
     "vintage_pop_rock_radio": "Vintage Pop & Rock Radio",
+    "vintage_classical_jazz": "Vintage & Classical Jazz",
+    "vintage_reggae_dancehall_radio": "Vintage Reggae & Dancehall Radio",
   };
 
   // Refs for tracking
@@ -188,6 +192,10 @@ class AudioPlayerController extends GetxController {
         jsonFile = "west_coast_g_funk_radio.json";
       } else if (currentJsonSource.value == "vintage_pop_rock_radio") {
         jsonFile = "Vintage Pop & Rock Radio.json";
+      } else if (currentJsonSource.value == "vintage_classical_jazz") {
+        jsonFile = "Vintage & Classical Jazz!.json";
+      } else if (currentJsonSource.value == "vintage_reggae_dancehall_radio") {
+        jsonFile = "Vintage Reggae & Dancehall Radio!.json";
       }
 
       final String jsonString = await rootBundle.loadString(

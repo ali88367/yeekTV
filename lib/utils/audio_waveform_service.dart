@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:audio_visualizer/audio_visualizer.dart';
 import 'package:just_audio/just_audio.dart';
@@ -24,7 +25,17 @@ class AudioWaveformService extends GetxController {
   Future<void> _ensureInitialized() async {
     _initFuture ??= () async {
       final p = VisualizerPlayer();
-      await p.initialize();
+      try {
+        // On hot reload or certain iOS states, initialize can throw if a player
+        // is already active under the hood. We treat that as "already ready"
+        // instead of a hard failure to keep things smooth.
+        await p.initialize();
+      } on PlatformException catch (e) {
+        if (e.code != 'PLAYER_ALREADY_INITIALIZED') {
+          rethrow;
+        }
+        // Swallow the error and continue with this instance.
+      }
       _player = p;
     }();
     await _initFuture;

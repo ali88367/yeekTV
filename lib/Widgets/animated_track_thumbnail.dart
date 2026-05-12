@@ -46,7 +46,9 @@ class _AnimatedTrackThumbnailState extends State<AnimatedTrackThumbnail>
   void initState() {
     super.initState();
 
-    _displayedImageUrl = widget.imageUrl;
+    // Start with no displayed image so even the first thumbnail
+    // uses the same animated transition from bottom-center.
+    _displayedImageUrl = null;
 
     _controller = AnimationController(
       vsync: this,
@@ -100,6 +102,12 @@ class _AnimatedTrackThumbnailState extends State<AnimatedTrackThumbnail>
       ),
       TweenSequenceItem(tween: ConstantTween(-360.0), weight: 35),
     ]).animate(_controller);
+
+    // Trigger initial animation if we already have an image URL on first build
+    if (widget.imageUrl != null) {
+      // Use a microtask so that context is fully ready for precacheImage
+      scheduleMicrotask(() => _handleImageChange(widget.imageUrl!));
+    }
   }
 
   @override
@@ -111,12 +119,10 @@ class _AnimatedTrackThumbnailState extends State<AnimatedTrackThumbnail>
   }
 
   Future<void> _handleImageChange(String newUrl) async {
-    if (_displayedImageUrl == null) {
-      setState(() => _displayedImageUrl = newUrl);
-      return;
-    }
-    if (newUrl == _displayedImageUrl) return;
-    if (_isAnimating) return;
+    // If this URL is already the active one and no animation is running, skip.
+    if (newUrl == _displayedImageUrl && !_isAnimating) return;
+    // If an animation is already running for this same "next" URL, skip.
+    if (_isAnimating && newUrl == _nextImageUrl) return;
 
     // Preload
     try {

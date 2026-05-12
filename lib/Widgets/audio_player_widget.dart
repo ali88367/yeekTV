@@ -75,7 +75,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         onTap: _onThumbnailTap,
         child: Container(
           width: Get.width * 0.93,
-          height: 210.h,
+          height: 350.h,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(0.r)),
           child: Stack(
             children: [
@@ -86,7 +86,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                   imageUrl: fixS3UrlFormat(track.thumbnail),
                   width: double.infinity,
                   height: double.infinity,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.fill,
                   borderRadius: BorderRadius.circular(0.r),
                 ),
               ),
@@ -154,7 +154,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                           // ),
 
                           // Play/Pause Button (below, no padding left)
-                          SizedBox(height: 56.h),
+                          SizedBox(height: 126.h),
                           Obx(
                             () => GestureDetector(
                               onTap: () {
@@ -191,7 +191,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                       // Spacer for thumbnail box position
                       // SizedBox(height: 200.h),
                       // SizedBox(height: 25.h),
-
+                      SizedBox(height: 66.h),
                       // Waveform
                       Obx(
                         () => WaveformWidget(

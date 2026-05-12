@@ -1,3 +1,9 @@
+int _toInt(dynamic value) {
+  if (value is int) return value;
+  if (value is String) return int.tryParse(value) ?? 0;
+  return 0;
+}
+
 class Track {
   final int sequence;
   final String title;
@@ -33,19 +39,19 @@ class Track {
 
   factory Track.fromJson(Map<String, dynamic> json) {
     return Track(
-      sequence: json['sequence'] ?? 0,
+      sequence: _toInt(json['sequence']),
       title: json['title'] ?? '',
       description: json['description'] ?? '',
-      duration: json['duration'] ?? 0,
+      duration: _toInt(json['duration']),
       durationString: json['duration_string'] ?? '',
-      elapsedDuration: json['elapsedDuration'] ?? 0,
+      elapsedDuration: _toInt(json['elapsedDuration']),
       url: json['url'] ?? '',
       id: json['id'] ?? '',
       thumbnail: json['thumbnail'] ?? '',
       mp3Url: json['mp3_url'] ?? '',
       artist: json['artist'] ?? '',
       album: json['album'] ?? '',
-      year: json['year'] ?? 0,
+      year: _toInt(json['year']),
       waveformData:
           (json['waveformData'] as List<dynamic>?)
               ?.map((e) => (e as num).toDouble())

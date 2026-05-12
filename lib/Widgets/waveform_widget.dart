@@ -192,7 +192,7 @@ class _WaveformWidgetState extends State<WaveformWidget> {
     // Show loader only if not initialized yet
     if (!_isInitialized) {
       return Container(
-        width: double.infinity,
+        width: Get.width * 0.9,
         height: 100.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.r),
@@ -215,65 +215,69 @@ class _WaveformWidgetState extends State<WaveformWidget> {
 
     // If no player yet, show empty bars
     if (_visualizerPlayer == null) {
-      return Container(
-        width: double.infinity,
-        height: 100.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.r),
-          color: Colors.transparent,
-        ),
-        child: CustomPaint(
-          painter: WaveformBarPainter(
-            barHeights: List.filled(25, 0.2),
-            isPlaying: widget.isPlaying,
+      return Center(
+        child: Container(
+          width: Get.width * 0.9,
+          height: 100.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4.r),
+            color: Colors.transparent,
           ),
-          size: Size.infinite,
-        ),
-      );
-    }
-
-    return Container(
-      width: double.infinity,
-      height: 100.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.r),
-        color: Colors.transparent,
-      ),
-      clipBehavior: Clip.none,
-      child: ListenableBuilder(
-        listenable: _visualizerPlayer!,
-        builder: (context, child) {
-          // Get waveform and FFT data
-          final waveform = _visualizerPlayer!.value.waveform;
-          final fft = _visualizerPlayer!.value.fft;
-
-          // Prioritize FFT data for real-time visualization (better for music)
-          // FFT provides frequency domain data that changes with the music
-          if (fft.isNotEmpty) {
-            // Use FFT data - this is better for real-time audio visualization
-            final fftData = getMagnitudes(fft);
-            final fftDouble = fftData
-                .map((e) => (e.toDouble() / 255.0).clamp(0.0, 1.0))
-                .toList();
-
-            return _buildBarVisualizerFromFFT(fftDouble);
-          } else if (waveform.isNotEmpty) {
-            // Fallback to waveform data if FFT not available
-            final waveformDouble = waveform
-                .map((e) => (e.toDouble() / 32768.0).abs().clamp(0.0, 1.0))
-                .toList();
-            return _buildBarVisualizer(waveformDouble);
-          }
-
-          // Fallback: show static bars while loading or if no data
-          return CustomPaint(
+          child: CustomPaint(
             painter: WaveformBarPainter(
               barHeights: List.filled(25, 0.2),
               isPlaying: widget.isPlaying,
             ),
             size: Size.infinite,
-          );
-        },
+          ),
+        ),
+      );
+    }
+
+    return Center(
+      child: Container(
+        width: Get.width * 0.8,
+        height: 100.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.r),
+          color: Colors.transparent,
+        ),
+        clipBehavior: Clip.none,
+        child: ListenableBuilder(
+          listenable: _visualizerPlayer!,
+          builder: (context, child) {
+            // Get waveform and FFT data
+            final waveform = _visualizerPlayer!.value.waveform;
+            final fft = _visualizerPlayer!.value.fft;
+
+            // Prioritize FFT data for real-time visualization (better for music)
+            // FFT provides frequency domain data that changes with the music
+            if (fft.isNotEmpty) {
+              // Use FFT data - this is better for real-time audio visualization
+              final fftData = getMagnitudes(fft);
+              final fftDouble = fftData
+                  .map((e) => (e.toDouble() / 255.0).clamp(0.0, 1.0))
+                  .toList();
+
+              return _buildBarVisualizerFromFFT(fftDouble);
+            } else if (waveform.isNotEmpty) {
+              // Fallback to waveform data if FFT not available
+              final waveformDouble = waveform
+                  .map((e) => (e.toDouble() / 32768.0).abs().clamp(0.0, 1.0))
+                  .toList();
+              return _buildBarVisualizer(waveformDouble);
+            }
+
+            // Fallback: show static bars while loading or if no data
+            return CustomPaint(
+              painter: WaveformBarPainter(
+                barHeights: List.filled(25, 0.2),
+                isPlaying: widget.isPlaying,
+              ),
+              size: Size.infinite,
+            );
+          },
+        ),
       ),
     );
   }

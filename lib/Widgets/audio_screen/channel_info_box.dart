@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yeektv/screens/profile/otherProfile.dart';
 import '../../Controller/audio_player_controller.dart';
 import 'channel_avatar.dart';
 import 'subscribe_button.dart';
@@ -141,7 +142,12 @@ class ChannelInfoBox extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Channel Avatar
-        ChannelAvatar(animationController: animationController),
+        GestureDetector(
+          onTap: () {
+            Get.to(OtherProfile());
+          },
+          child: ChannelAvatar(animationController: animationController),
+        ),
 
         // Subscribe Buttons Wrapper - Right aligned
         Flexible(
